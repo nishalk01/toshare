@@ -1,0 +1,16 @@
+import mysql.connector
+
+userid = input("Enter user id")
+password = input("Enter password")
+name = input("Enter your name")
+phone = input("Enter your phone number")
+
+conn = mysql.connector.connect(host = "localhost", user="root",
+password="", database="MITE")
+
+c  = conn.cursor()
+sql = "insert into regn values('" + userid + "','" + password +"','"+name+"','"+phone+"')"
+
+c.execute(sql)
+conn.commit()
+print("Record addeddd.")
