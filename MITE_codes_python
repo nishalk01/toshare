@@ -1,0 +1,332 @@
+city = "mysore"
+country  = "india"
+area = "palace"
+
+print("We have a {} in {} which is in {}".format(area, city,country))
+# print("We have a {2} in {0} which is in {1}".format(city,country,area))
+
+
+age  = int(input("Enter age"))
+marks = int(input("Enter marks"))
+if age > 18 and marks  > 79:
+    print("Passs")
+else:
+    print("Fail")
+
+
+for _ in range(5):
+    print("MITE")
+
+
+
+#accept 10 number and display the biggest one
+t = 0
+
+for i in range(10):
+    x  = int(input()) 
+    if  x  > t:
+        t =  x
+print("Biggest number is ", t)
+
+
+#accept 10 number and display sum of evens
+t = 0
+print("Enter 10 numbers")
+for i in range(10):
+    x  = int(input()) 
+    if  x  % 2  == 0:
+        t = t + x
+print("Sum of even numbers only is", t)
+
+
+
+numbers = []
+counter = 0 
+for i in range(10):
+    numbers.append(int(input()))
+
+for x in numbers:
+    if x == 5:
+        counter +=1
+    
+print("5 appears {} times".format(counter))
+
+
+students = []
+for _ in range(5):
+    sub=[]
+    name  = input("Enter name")
+    sem = int(input("Enter sem"))
+    for i in range(1,4):
+        sub.append(input("Enter Subject {} ".format(i)))
+    students.append(name)
+    students.append(sem)
+    students.append(sub)
+
+print(students)
+
+
+
+
+# sets....
+
+s1  = {1,2,3}
+s2 = { 1, 4, 5}
+print(s1.intersection(s2))
+print(s1)
+print(s2.difference(s1))
+print(s2.difference_update(s1))
+print(s2)
+
+
+
+name = input("Enter name")
+age  = int(input("Enter age"))
+phone = input("Enter phone")
+
+students = {"name":name, "age":age, "phone":phone}
+
+print("Name of the student is ", students.get("name"))
+print("Age of the student is ", students.get("age"))
+print("Phone of the student is ", students.get("phone"))
+
+print(students.keys())
+print(students.values())
+
+
+
+
+
+students =  [] 
+print("Enter name and age for 3 studs")
+for i in range(3):
+    name = input()
+    age = int (input())
+    s  = {"name":name, "age":age}
+    students.append(s)
+
+t   = 0
+for i in students:
+    if i.get("age") > t:
+        t = i.get("age")
+    
+for i in students:
+    if i.get("age")  == t:
+        print("Name is {} age is {}".format(i.get("name"), i.get("age"))
+print("Max age is ", t)
+
+
+
+n  =  0 
+while n !=6:
+    n  = int(input("Enter any number ....6 to quit"))
+    print("You entered ", n)
+    
+
+def square_it(x):
+    for i in x:
+        print(i*i)
+
+mylist = []
+print("Enter 5 numbers")
+for i in range(5):
+    mylist.append(int(input()))
+
+square_it(mylist)
+
+
+
+def foo(x):
+    if x % 2 == 1:
+        return x*x*x
+    else:
+        return x * 2
+
+print(foo(int(input("Enter any number"))))
+
+
+#sort(), sorted(), reversed(), reverse()
+a  = [2,5,6,7]
+a.reverse()
+b  =reversed(a)
+print(a)
+print(list(b))
+
+
+#map function
+#using map display sqrs of the elem of list
+
+a = [3,5,8,4,5,3,4,5]
+
+# def foo(x):
+#     return x*x
+
+print(list(map(lambda x: x*x, a)))
+# print(list(map(foo, a)))
+
+
+a  = [1,2,3]
+b  = [2,4,6]
+c =  [4, 4, 4 ]
+
+#a X b X c
+
+answer  = map(lambda t,y,u,:t*y*u, a,b,c)
+print(list(answer))
+
+
+check  = lambda x : x > 10 and x < 20
+
+print(check(121))
+
+import array
+myarray = array.array('d', [1.0, "uttam", 2.0, 3.14])
+print(list(myarray))
+
+
+import array
+myarray = array.array('d', [1.0,7, 2.0, 3.14])
+print(list(myarray))
+
+print(array.typecodes)
+
+
+
+import tkinter as tk
+
+class Application(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.pack()
+        self.create_widgets()
+
+    def create_widgets(self):
+        self.hi_there = tk.Button(self)
+        self.hi_there["text"] = "Hello World\n(click me)"
+        self.hi_there["command"] = self.say_hi
+        self.hi_there.pack(side="top")
+
+        self.quit = tk.Button(self, text="QUIT", fg="red",
+                              command=self.master.destroy)
+        self.quit.pack(side="bottom")
+
+    def say_hi(self):
+        print("hi there, everyone!")
+
+root = tk.Tk()
+app = Application(master=root)
+app.mainloop()
+
+
+
+
+
+class Employee:
+    ecode = ""
+    ename = ""
+    salary = 0
+    dob=""
+    def __init__(self):
+        self.ecode = "Not provided"
+        self.ename = "Not provided"
+        self.salary  = 0
+        self.dob = "Guess not yet in the world!"
+    def accept(self):
+        self.ecode  = input("Enter code")
+        self.ename  = input("Enter name")
+        self.salary  = input("Enter salary")
+        self.dob = input("Enter dob")
+    def display(self):
+        print("Welecome {} your ecode is {} and salary is {} and you were born on {}".format(self.ename, self.ecode , self.salary, self.dob))
+
+class ContractE(Employee):
+    agencycode= ""
+    def accept(self):
+        Employee.accept(self)
+        self.agencycode = input("Enter agency code")
+    def display(self):
+        Employee.display(self)
+        print("your agency code is ", self.agencycode)
+
+class Delegates(Employee):
+    countrycode =""
+    
+
+e1  = ContractE()
+e1.accept()
+e1.display()
+
+
+
+
+class Sport:
+    points=0
+    def accept(self):
+        self.points  = int(input("Enter points"))
+    def show(self):
+        print("Sports points: ", self.points)
+
+class Exam:
+    marks=0
+    def accept(self):
+        self.marks  = int(input("Enter marks"))
+    def show(self):
+        print("Exam marks: ", self.marks)
+
+class candidate(Sport, Exam):
+    def accept(self):
+        Sport.accept(self)
+        Exam.accept(self)
+    def show(self):
+        Sport.show(self)
+        Exam.show(self)
+
+#take objects.
+obj1   = candidate()
+obj1.accept()
+obj1.show()
+
+
+
+from abc import ABC, abstractmethod
+
+class VISA(ABC):
+    @abstractmethod  #decorators
+    def application_submission(self):
+        pass
+
+class IndEbsy(VISA):
+    #overrriding the base class method
+    # def application_submission(self):
+    #     print("appilcation is given to the clerk...")
+    def foo(self):
+        pass
+
+x  = IndEbsy()  
+x.application_submission()
+
+
+def birdsMigration(list):
+    count = 0
+    bird = list[0]
+    for i in list:
+        bird_frequency = list.count(i)
+        if bird_frequency > count:
+            count = bird_frequency
+            bird = i
+        elif bird_frequency == count:
+            if i < bird :
+                bird = i
+    return bird
+
+birds = 12217782
+mylist = []
+for i in str(birds):
+    mylist.append(i)
+res = birdsMigration(mylist)
+print('the most migrated bird is : ',res)
+
+
+
+
