@@ -1,0 +1,27 @@
+import re
+
+sample = '''abcABC23424
+234-343-3434
+343&343#3434
+ABC 56
+
+ABCPU0719H
+23F
+2FF
+
+@222
+#
+
+Mr. taresh
+Mr. uttam
+Mr# taresh
+Mr. Taresh
+Mrs. Meena
+'''
+
+
+mypattern  = re.compile('Mr\.\s\w[^u]*')
+matches = mypattern.finditer(sample)
+
+for match in matches:
+    print(match)
