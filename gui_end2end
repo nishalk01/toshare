@@ -1,0 +1,97 @@
+import mysql.connector
+from tkinter import *
+from tkinter import ttk
+
+mydb=mysql.connector.connect(host="localhost",user="root",password="",database="mydata")
+print(mydb)
+mycursor = mydb.cursor()
+from tkinter import messagebox
+def save():
+    sql = "INSERT INTO NamePhone (Name, Phone) VALUES (%s, %s)"
+    name = e1.get()
+    phone = str(e2.get())
+    size=phone.__len__()
+    if (name == ''):
+        messagebox.showwarning("Warning", "Name Field is empty !!")
+        return
+    elif (phone == ''):
+        messagebox.showwarning("Warning", "Phone Field is empty !!")
+        return
+    elif (size < 10):
+        messagebox.showwarning("Warning", "Invalid Phone Number !!")
+        return
+    elif ( phone.isalpha()):
+        messagebox.showwarning("Warning", "Invalid Phone Number !!")
+        return
+    val = (name, phone)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
+    print(name, phone)
+    if (mycursor.rowcount>0):
+        listBox.insert("", "end", values=(name, phone))
+        messagebox.showinfo("title",str(mycursor.rowcount)+" record added successfully")
+
+
+def clear():
+    e1.delete(0, END)
+    e2.delete(0, END)
+    e1.focus()
+def quit():
+    if (mydb.is_connected()):
+        mydb.close()
+        mycursor.close()
+    top.destroy()
+
+def load_database(cols):
+    # set column headings
+    for col in cols:
+        listBox.heading(col, text=col)
+    listBox.grid(row=1, column=0, columnspan=2)
+    #listBox.yscrollcommand = True
+
+    scrollbar = Scrollbar(top)
+    scrollbar.place(x=700,y=250,height=225)
+    listBox.config(yscrollcommand=scrollbar.set)
+    scrollbar.config(command=listBox.yview)
+    sql = "SELECT * FROM NamePhone"
+    mycursor.execute(sql)
+    records = mycursor.fetchall()
+    for row in records:
+        listBox.insert("", "end", values=(row[0], row[1]))
+    listBox.place(x=300,y=250)
+def addLabelandEntry():
+    Label(top, text="Name ").place(x=300, y=100)
+    e1.place(x=400, y=100)
+    e1.focus()
+    Label(top, text="Phone ").place(x=300, y=150)
+    e2.place(x=400, y=150)
+def addButtons():
+    btnSave = Button(top, text='Submit', width=25, command=save)
+    btnSave.place(width=60, height=30, x=400, y=200)
+
+    btnClear = Button(top, text='Clear', width=25, command=clear)
+    btnClear.place(width=60, height=30, x=500, y=200)
+
+    btnQuit = Button(top, text='Quit', width=25, command=quit)
+    btnQuit.place(width=60, height=30, x=600, y=200)
+
+
+
+def main():
+    top.title('Fetching Data From Database')
+    addLabelandEntry()
+    addButtons()
+    load_database(cols)
+#top.geometry("300x250+500+400") #Width x Height
+    top.minsize(1000, 600)
+    top.geometry("+250+70")
+    top.mainloop()
+
+if __name__ == "__main__":
+    top = Tk()
+    e1 = Entry(top)
+    e2 = Entry(top)
+    cols = ('Name', 'Phone')
+    listBox = ttk.Treeview(top, columns=cols, show='headings')
+    main()
